@@ -42,6 +42,7 @@ Find the file `index.js` and complete the tasks.
 Edit the `ReadMe` file with your answers.
 
 1. In your own words, define closure (1-2 sentences).
+Closere gives us the ability to access code from a different level scope. It gives us the ability to put functions together.
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -63,8 +64,11 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+the name variable being called in the return function is being used outside of its scope.
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+name will always be the same but the 'newRoll' number being returned could change
 c. What is the lexical scope of `newRoll`? 
+lexical scoped to the return function with access to personalDice function.
 
 ### Task 2c - Exit Ticket
 

@@ -18,6 +18,11 @@ function processFirstItem(stringList, callback) {
   return callback(stringList[0])
 }
 
+const add = (stringList) => stringList + stringList;
+
+let list = ['a', 'b', 'c', 'd'];
+console.log(processFirstItem(list, add));
+
 // ⭐️ Example Challenge END ⭐️
 
 
@@ -27,12 +32,16 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
+ * Counter 1 has a local variable of count that is incremented in a method.
+ * Counter 2 has a global variable of count that is incremented inside the counter2() function.
  * 
  * 2. Which of the two uses a closure? How can you tell?
+ * Counter 1 uses a closure because it accesses the count variable in a child scope.
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
-*/
+ *Counter 1 would be preferable almost always.
+ *Counter 2 would be preferable almost never (bad to use global variables, especially when they aren't constants.
+ */
 
 // counter1 code
 function counterMaker() {
@@ -56,15 +65,15 @@ function counter2() {
 
 Write a function called `inning` that returns a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+function inning(){
+  return (Math.floor(Math.random() * 3) + 0);
 }
+
+console.log(inning());
 
 /* Task 3: finalScore()
 
-Write a higher order function called `finalScore` that accepts the callback function `inning` (from above) and a number of innings and and returns the final score of the game in the form of an object.
+Write a higher order function called `finalScore` that accepts the callback function `inning` (from above) and a number of innings and returns the final score of the game in the form of an object.
 
 For example, 
 
@@ -76,11 +85,20 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
+function finalScore(cb, num){
+  let score = {
+    Home: 0,
+    Away: 0
+  }
+  for(let i = 0; i < num; i++)
+  {
+    score.Home += cb();
+    score.Away += cb();
+  }
+  return score;
 }
+
+console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -103,8 +121,16 @@ and returns the score at each pont in the game, like so:
 Final Score: awayTeam - homeTeam */
 
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(cb1, cb2, num) {
+  let score = cb1(cb2, 1);
+  let score2 = cb1(cb2, 1);
+  for(let i = 0; i < num; i++)
+  {
+    console.log(`Inning ${i+1}: Away team: ${score.Away} - Home team: ${score.Home}`);
+    score2 = cb1(cb2, 1);
+    score.Home += score2.Home;
+    score.Away += score2.Away;
+  }
 }
 
-
+scoreboard(finalScore, inning, 9);
